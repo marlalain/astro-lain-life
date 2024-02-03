@@ -8,6 +8,9 @@ dependencies:
   '@astrojs/check':
     specifier: ^0.4.1
     version: 0.4.1(typescript@5.3.3)
+  '@astrojs/deno':
+    specifier: ^5.0.1
+    version: 5.0.1(astro@4.3.2)
   '@astrojs/mdx':
     specifier: ^2.1.1
     version: 2.1.1(astro@4.3.2)
@@ -72,6 +75,15 @@ packages:
 
   /@astrojs/compiler@2.5.2:
     resolution: {integrity: sha512-fm9HNYu1tVnJjZYHE+SdDM5k6fZKNPXS9PwT43Mf6l4HVGx8d1jQwhGQqCvLkYJJBwQ9OysiexFMt7wtNuXhmQ==}
+    dev: false
+
+  /@astrojs/deno@5.0.1(astro@4.3.2):
+    resolution: {integrity: sha512-nYztGqHqC+q3A9ynjj3gblAkO/ZylDwahjVTx+2DvZgX4U+BJU/gL5BZkNtL+P10opCKJi29NvvVFvk6jwZHmA==}
+    peerDependencies:
+      astro: ^3.1.4
+    dependencies:
+      astro: 4.3.2(typescript@5.3.3)
+      esbuild: 0.19.12
     dev: false
 
   /@astrojs/internal-helpers@0.2.1:
