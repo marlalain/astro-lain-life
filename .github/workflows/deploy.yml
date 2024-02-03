@@ -16,13 +16,11 @@ jobs:
       - name: Install pnpm
         run: npm i -g pnpm
 
-      # Not using npm? Change `npm ci` to `yarn install` or `pnpm i`
       - name: Install dependencies
         run: pnpm i
 
-      # Not using npm? Change `npm run build` to `yarn build` or `pnpm run build`
       - name: Build Astro
-        run: npm run build
+        run: pnpm run build
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
