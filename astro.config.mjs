@@ -9,6 +9,6 @@ import deno from '@astrojs/deno'
 export default defineConfig({
   output: 'server',
   adapter: deno(),
-  site: 'https://example.com',
+  site: 'https://lain.life',
   integrations: [mdx(), sitemap(), tailwind()]
 });
