@@ -20,7 +20,7 @@ jobs:
         run: npm i -g pnpm
 
       - name: Install dependencies
-        run: pnpm i
+        run: pnpm i --no-frozen-lockfile
 
       - name: Build Astro
         run: pnpm run build
