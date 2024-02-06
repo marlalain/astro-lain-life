@@ -24,7 +24,7 @@ jobs:
         run: pnpm i --no-frozen-lockfile
 
       - name: Generate posts
-        run: '/home/runner/.deno/bin/deno run --unstable-kv --allow-env --allow-net --allow-write --allow-read --quiet bin/generate.ts
+        run: /home/runner/.deno/bin/deno run --unstable-kv --allow-env --allow-net --allow-write --allow-read --quiet bin/generate.ts
 
       - name: Removing scripts
         run: rm -rf ./bin
