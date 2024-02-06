@@ -2,12 +2,31 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import {SITE_TITLE, SITE_DESCRIPTION} from '../consts';
-import {getCollection} from 'astro:content';
-import FormattedDate from '../components/FormattedDate.astro';
+import {openKv} from "@deno/kv";
+import FormattedDate from "../components/FormattedDate.astro";
 
-const posts = (await getCollection('blog')).sort(
-  (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
-);
+type Post = {
+  id: string
+  post: {
+    content: string
+    postedAt: string
+    imageURL?: string
+  }
+}
+
+const kv = await openKv("https://api.deno.com/databases/ec5ad8e6-aa41-47a9-ae5a-89d8cf990695/connect", {debug: true})
+const posts: Post[] = []
+
+for await (const post of kv.list({prefix: ["posts"]})) {
+  posts.push(<Post>{
+    id: post.key.at(1),
+    post: {
+      content: post.value.content,
+      postedAt: new Date(post.value.postedAt),
+      ...(!!post.value.imageURL && {imageURL: post.value.imageURL})
+    }
+  })
+}
 ---
 
 <!doctype html>
@@ -25,21 +44,22 @@ const posts = (await getCollection('blog')).sort(
         posts.map((post) => (
           <li class="border border-gray-200 rounded p-4 hover:bg-gray-100 hover:text-gray-700">
             <div class="flex flex-col gap-2">
-              <p class="">{post.data.content}</p>
+              <p client:load>{post.post.content}</p>
 
-              {post.data.image &&
-                <div class="self-center"><a href={post.data.image}>
-                  <img class="rounded-lg" width={720} height={480} src={post.data.image}
+              {post.post.imageURL &&
+                <div class="self-center"><a href={post.post.imageURL}>
+                  <img class="rounded-lg" width={360} height={240} src={post.post.imageURL}
                        alt="post image"/>
                 </a></div>}
 
               <div class="flex justify-between gap-32">
-                <p class="text-gray-700 cursor-default">{post.data.id}</p>
+                <p client:load class="text-gray-700 cursor-default">{post.id}</p>
 
-                <p class="self-end cursor-default">
-                  posted on
-                  <FormattedDate date={post.data.pubDate}/>
-                </p>
+                {!!post.post.postedAt &&
+                  <p class="self-end cursor-default">
+                    posted on
+                    <FormattedDate date={post.post.postedAt}/>
+                  </p>}
               </div>
             </div>
           </li>
