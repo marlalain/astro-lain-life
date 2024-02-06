@@ -16,14 +16,14 @@ import FormattedDate from "../components/FormattedDate.astro";
   <Header/>
 
   <section class="flex justify-center">
-    <ul class="flex flex-col gap-4">
+    <ul class="flex flex-col gap-4 max-w-[800px]">
       {
         posts.map((post) => (
           <li class="border border-gray-200 rounded p-4 hover:bg-gray-100 hover:text-gray-700">
             <div class="flex flex-col gap-2">
               <p>{post.content}</p>
 
-              {!!post?.imageURL &&
+              {!!post.imageURL &&
                 <div class="self-center"><a href={post.imageURL}>
                   <img class="rounded-lg" width={360} height={240} src={post.imageURL}
                        alt="post image"/>
@@ -34,7 +34,7 @@ import FormattedDate from "../components/FormattedDate.astro";
 
                 <p class="self-end cursor-default">
                   posted on
-                  <FormattedDate date={post.post.postedAt}/>
+                  <FormattedDate date={new Date(post.postedAt)}/>
                 </p>
               </div>
             </div>

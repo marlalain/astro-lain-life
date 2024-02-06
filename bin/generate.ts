@@ -6,6 +6,7 @@ let posts = [];
 
 for await (const post of kv.list({prefix: ["posts"]})) {
   posts.push({
+    id: post.key.at(1),
     content: post.value.content,
     postedAt: new Date(post.value.postedAt),
     ...(post.value.imageURL && {imageURL: post.value.imageURL})
