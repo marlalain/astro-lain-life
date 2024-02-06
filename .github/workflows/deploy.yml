@@ -9,16 +9,15 @@ jobs:
       id-token: write # Needed for auth with Deno Deploy
       contents: read # Needed to clone the repository
 
-    env:
-      DENO_KV_ACCESS_TOKEN: ${{ env.DENO_KV_ACCESS_TOKEN }}
-
     steps:
       - name: Clone repository
         uses: actions/checkout@v3
 
       - name: Install deno
-        run:
-          curl -fsSL https://deno.land/install.sh | sh && export DENO_INSTALL="/home/runner/.deno" && export PATH="$DENO_INSTALL/bin:$PATH"
+        run: |
+          curl -fsSL https://deno.land/install.sh | sh
+          export DENO_INSTALL="/home/runner/.deno"
+          export PATH="$DENO_INSTALL/bin:$PATH"
 
       - name: Install pnpm
         run: npm i -g pnpm
@@ -27,6 +26,8 @@ jobs:
         run: pnpm i --no-frozen-lockfile
 
       - name: Generate posts
+        env:
+          DENO_KV_ACCESS_TOKEN: ${{ env.DENO_KV_ACCESS_TOKEN }}
         run: /home/runner/.deno/bin/deno run --unstable-kv --allow-env --allow-net --allow-write --allow-read --quiet bin/generate.ts
 
       - name: Removing scripts
