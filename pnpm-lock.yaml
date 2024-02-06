@@ -44,9 +44,6 @@ dependencies:
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
-  with-env:
-    specifier: ^1.0.0
-    version: 1.0.0
 
 devDependencies:
   '@iconify-json/mdi':
@@ -2080,10 +2077,6 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
-
-  /fs@0.0.2:
-    resolution: {integrity: sha512-YAiVokMCrSIFZiroB1oz51hPiPRVcUtSa4x2U5RYXyhS9VAPdiFigKbPTnOSq7XY8wd3FIVPYmXpo5lMzFmxgg==}
-    dev: false
 
   /fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
@@ -4921,13 +4914,6 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       string-width: 5.1.2
-    dev: false
-
-  /with-env@1.0.0:
-    resolution: {integrity: sha512-w3K3LKIMQDWcjS2mlWP4PqfRd1625B1wJXe/0wcojcfYRX4onNAAuBFi3bpPdSeM34NE6mAO/inIyithK35giA==}
-    engines: {node: '>= 0.10'}
-    dependencies:
-      fs: 0.0.2
     dev: false
 
   /wrap-ansi@6.2.0:
