@@ -9,7 +9,7 @@ type Post = {
   id: string
   post: {
     content: string
-    postedAt: string
+    postedAt: Date
     imageURL?: string
   }
 }
@@ -17,16 +17,20 @@ type Post = {
 const kv = await openKv("https://api.deno.com/databases/ec5ad8e6-aa41-47a9-ae5a-89d8cf990695/connect", {debug: true})
 const posts: Post[] = []
 
-for await (const post of kv.list({prefix: ["posts"]})) {
-  posts.push(<Post>{
-    id: post.key.at(1),
-    post: {
-      content: post.value.content,
-      postedAt: new Date(post.value.postedAt),
-      ...(!!post.value.imageURL && {imageURL: post.value.imageURL})
-    }
-  })
-}
+await (new Promise(async (resolve) => {
+  for await (const post of kv.list<{ content: string, postedAt: string, imageURL?: string }>({prefix: ["posts"]})) {
+    posts.push({
+      id: post.key.at(1) as string,
+      post: {
+        content: post.value.content,
+        postedAt: new Date(post.value.postedAt),
+        ...(!!post.value.imageURL && {imageURL: post.value.imageURL})
+      }
+    })
+  }
+
+  resolve(true)
+}))
 ---
 
 <!doctype html>
@@ -44,16 +48,16 @@ for await (const post of kv.list({prefix: ["posts"]})) {
         posts.map((post) => (
           <li class="border border-gray-200 rounded p-4 hover:bg-gray-100 hover:text-gray-700">
             <div class="flex flex-col gap-2">
-              <p client:load>{post.post.content}</p>
+              <p>{post.post.content}</p>
 
-              {post.post.imageURL &&
+              {!!post.post?.imageURL &&
                 <div class="self-center"><a href={post.post.imageURL}>
                   <img class="rounded-lg" width={360} height={240} src={post.post.imageURL}
                        alt="post image"/>
                 </a></div>}
 
               <div class="flex justify-between gap-32">
-                <p client:load class="text-gray-700 cursor-default">{post.id}</p>
+                <p class="text-gray-700 cursor-default">{post.id}</p>
 
                 {!!post.post.postedAt &&
                   <p class="self-end cursor-default">
