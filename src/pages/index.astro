@@ -4,6 +4,13 @@ import Header from '../components/Header.astro';
 import {SITE_TITLE, SITE_DESCRIPTION} from '../consts';
 import posts from "../data/posts.json";
 import FormattedDate from "../components/FormattedDate.astro";
+
+type Post = {
+  id: string
+  content: string
+  postedAt: string
+  imageURL?: string
+}
 ---
 
 <!doctype html>
@@ -18,7 +25,7 @@ import FormattedDate from "../components/FormattedDate.astro";
   <section class="flex justify-center">
     <ul class="flex flex-col gap-4 max-w-[800px]">
       {
-        posts.map((post) => (
+        (posts as Post[]).map((post) => (
           <li class="border border-gray-200 rounded p-4 hover:bg-gray-100 hover:text-gray-700">
             <div class="flex flex-col gap-2">
               <p>{post.content}</p>
