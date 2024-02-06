@@ -8,7 +8,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "post": "deno run --unstable-kv --allow-env --allow-net --allow-read --quiet main.ts"
+    "post": "deno run --unstable-kv --allow-env --allow-net --allow-read --quiet bin/post.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.4.1",
