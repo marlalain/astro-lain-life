@@ -13,14 +13,20 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v3
 
-      - name: Removing scripts
-        run: rm -rf ./bin
+      - name: Install deno
+        run: curl -fsSL https://deno.land/install.sh | sh
 
       - name: Install pnpm
         run: npm i -g pnpm
 
       - name: Install dependencies
         run: pnpm i --no-frozen-lockfile
+
+      - name: Generate posts
+        run: pnpm generate
+
+      - name: Removing scripts
+        run: rm -rf ./bin
 
       - name: Build Astro
         run: pnpm run build

@@ -10,5 +10,5 @@ export default defineConfig({
   output: 'server',
   adapter: deno(),
   site: 'https://lain.life',
-  integrations: [mdx(), sitemap(), tailwind()]
+  integrations: [mdx(), sitemap(), tailwind()],
 });
