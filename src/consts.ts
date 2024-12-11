@@ -3,4 +3,4 @@
 
 export const SITE_TITLE = "marla lain";
 export const PRONOUNS = "she/her"
-export const SITE_DESCRIPTION = 'factory owner, business hater, things sayer';
+export const SITE_DESCRIPTION = 'factory owner, pizza hater, things sayer';
